@@ -1,0 +1,19 @@
+{
+	"name": "ElvenSpellmaker/PipeSystem",
+	"type": "library",
+	"description": "A system of \"pipes\" for PHP.",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Jack Blower",
+			"email": "Jack@elvenspellmaker.co.uk",
+			"homepage": "https://github.com/ElvenSpellmaker"
+		}
+	],
+	"require": {
+		"php": ">=5.5.0"
+	},
+	"autoload": {
+		"classmap": ["src/"]
+	}
+}
