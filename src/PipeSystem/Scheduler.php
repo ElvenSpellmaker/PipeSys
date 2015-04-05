@@ -76,6 +76,7 @@ class Scheduler
 		{
 			foreach( $this->commandGenerators as $key => $gen )
 			{
+				/** @todo This needs to be replaced as it's not strictly correct! */
 				if ( ! $gen->valid() ) break 2;
 
 				// Check to see if this command is intending on reading and
@@ -93,12 +94,17 @@ class Scheduler
 	}
 
 	/**
-	 * Prepapres all commands by getting their generators from `doCommand()`.
+	 * Prepapres all commands by getting their generators from `doCommand()`
+	 * and handles the first response from each generator.
 	 */
-	public function prepareCommands()
+	protected function prepareCommands()
 	{
 		foreach( $this->commands as $key => $commands )
+		{
 			$this->commandGenerators[$key] = $commands->doCommand();
+			$genResponse = $this->commandGenerators[$key]->current();
+			$this->handleGenResponse($genResponse, $key);
+		}
 	}
 
 	/**
@@ -147,14 +153,11 @@ class Scheduler
 		$gen = $this->commandGenerators[$key];
 
 		if( $readLine !== false && $readLine !== null )
-		{
 			$genResponse = $gen->send( $readLine );
-			$gen->next();
-		}
 		elseif( ! isset( $this->outputs[$key] ) )
 		{
+			$gen->next();
 			$genResponse = $gen->current();
-			if( ! $genResponse instanceof ReadIntent ) $gen->next();
 		}
 		else $genResponse = false;
 
@@ -177,7 +180,7 @@ class Scheduler
 		{
 			// If we are the last command in the chain and we want to write,
 			// then we can write to the stdOut, whatever that is defined as.
-			if( $this->commandGenerators[$key] === end( $this->commandGenerators ) )
+			if( $this->commands[$key] === end($this->commands) )
 				$this->stdOut->write( $genResponse );
 			else
 				$this->outputs[$key] = $genResponse;
