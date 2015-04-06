@@ -10,6 +10,9 @@ class Head implements CommandInterface
 {
 	protected $lines;
 
+	/**
+	 * @param string $lines
+	 */
 	public function __construct($lines = 10)
 	{
 		$this->lines = (int)$lines;

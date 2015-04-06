@@ -7,10 +7,10 @@ use ElvenSpellmaker\PipeSystem\Command\CommandInterface;
 class ChattyYes implements CommandInterface
 {
 	protected $chatting = [
-		"Yes\n",
-		"I\n",
-		"Am\n",
-		"Chatty\n",
+		'Yes'. PHP_EOL,
+		'I'. PHP_EOL,
+		'Am'. PHP_EOL,
+		'Chatty'. PHP_EOL,
 	];
 
 	/**

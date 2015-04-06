@@ -6,15 +6,13 @@ use ElvenSpellmaker\PipeSystem\Command\CommandInterface;
 
 class Yes implements CommandInterface
 {
+	const ECHO_LINE = 'y'. PHP_EOL;
+
 	/**
 	 * {@inheritdoc}
 	 */
-	public function doCommand($echo = '')
+	public function doCommand()
 	{
-		! $echo and $echo = 'y';
-
-		$echo .= "\n";
-
-		while(true) yield $echo;
+		while(true) yield static::ECHO_LINE;
 	}
 }

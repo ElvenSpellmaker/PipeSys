@@ -13,6 +13,9 @@ class Grep implements CommandInterface
 	 */
 	protected $regex = '';
 
+	/**
+	 * @param string $regex
+	 */
 	public function __construct($regex)
 	{
 		// Escape the % signs in the string.
@@ -35,7 +38,7 @@ class Grep implements CommandInterface
 
 			$output = preg_grep( $this->regex, [$input] );
 
-			if( count( $output ) ) yield $input.PHP_EOL;
+			if( count( $output ) ) yield $input . PHP_EOL;
 		}
 	}
 }
