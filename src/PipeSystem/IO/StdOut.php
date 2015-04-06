@@ -11,6 +11,6 @@ class StdOut implements OutputInterface
 	 */
 	public function write($out)
 	{
-		fwrite(STDOUT, $out);
+		fwrite( STDOUT, $out );
 	}
 }

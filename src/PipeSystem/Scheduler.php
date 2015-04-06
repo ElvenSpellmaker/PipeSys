@@ -3,6 +3,7 @@
 namespace ElvenSpellmaker\PipeSystem;
 
 use ElvenSpellmaker\PipeSystem\Command\CommandInterface;
+use ElvenSpellmaker\PipeSystem\IO\InputInterface;
 use ElvenSpellmaker\PipeSystem\IO\OutputInterface;
 use ElvenSpellmaker\PipeSystem\IO\ReadIntent;
 use Generator;
@@ -13,6 +14,8 @@ use Generator;
  */
 class Scheduler
 {
+	const STDIN = -1;
+
 	/**
 	 * @var array
 	 */
@@ -34,16 +37,24 @@ class Scheduler
 	protected $readIntents = [];
 
 	/**
+	 * @var InputInterface
+	 */
+	protected $stdIn;
+
+	/**
 	 * @var OutputInterface
 	 */
 	protected $stdOut;
 
 	/**
+	 * @param InputInterface $stdIn The standard Input to be used for the first
+	 * command to read from.
 	 * @param OutputInterface $stdOut The Standard Out to be used for the last
 	 * command to write to.
 	 */
-	public function __construct(OutputInterface $stdOut)
+	public function __construct(InputInterface $stdIn, OutputInterface $stdOut)
 	{
+		$this->stdIn = $stdIn;
 		$this->stdOut = $stdOut;
 	}
 
@@ -87,8 +98,6 @@ class Scheduler
 					continue;
 
 				$this->handleGenResponse($genResponse, $key);
-
-				unset( $genResponse );
 			}
 		}
 	}
@@ -126,7 +135,12 @@ class Scheduler
 		if ( isset( $this->readIntents[$key] ) )
 		{
 			$previousGenKey = $key - 1;
-			if ( isset( $this->outputs[$previousGenKey] ) )
+			if( $previousGenKey === static::STDIN )
+			{
+				$output = $this->stdIn->read();
+				unset( $this->readIntents[$key] );
+			}
+			elseif( isset( $this->outputs[$previousGenKey] ) )
 			{
 				$output = $this->outputs[$previousGenKey];
 				unset( $this->outputs[$previousGenKey], $this->readIntents[$key] );

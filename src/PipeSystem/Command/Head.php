@@ -3,6 +3,7 @@
 namespace ElvenSpellmaker\PipeSystem\Command;
 
 use ElvenSpellmaker\PipeSystem\Command\CommandInterface;
+use ElvenSpellmaker\PipeSystem\IO\EOF;
 use ElvenSpellmaker\PipeSystem\IO\ReadIntent;
 
 class Head implements CommandInterface
@@ -22,6 +23,7 @@ class Head implements CommandInterface
 		while($this->lines--)
 		{
 			$input = (yield new ReadIntent);
+			if( $input instanceof EOF ) break;
 			yield $input;
 		}
 	}

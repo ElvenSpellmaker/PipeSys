@@ -3,6 +3,7 @@
 namespace ElvenSpellmaker\PipeSystem\Command;
 
 use ElvenSpellmaker\PipeSystem\Command\CommandInterface;
+use ElvenSpellmaker\PipeSystem\IO\EOF;
 use ElvenSpellmaker\PipeSystem\IO\ReadIntent;
 
 class Grep implements CommandInterface
@@ -28,13 +29,13 @@ class Grep implements CommandInterface
 		{
 			$input = (yield new ReadIntent);
 
-			if( $input === '' ) break;
+			if( $input instanceof EOF ) break;
 
-			$input = rtrim($input, "\r\n");
+			$input = rtrim( $input, "\r\n" );
 
-			$output = preg_grep($this->regex, [$input]);
+			$output = preg_grep( $this->regex, [$input] );
 
-			if (count($output)) yield $input.PHP_EOL;
+			if( count( $output ) ) yield $input.PHP_EOL;
 		}
 	}
 }
