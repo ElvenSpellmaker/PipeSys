@@ -82,8 +82,8 @@ Cycle 4:
 
 The equivalent `PipeSys` code to the above scenario is below:
 ```php
-use ElvenSpellmaker\PipeSystem as PS;
-use ElvenSpellmaker\PipeSystem\Command as Command;
+use ElvenSpellmaker\PipeSys as PS;
+use ElvenSpellmaker\PipeSys\Command as Command;
 
 $s = new PS\Scheduler( new PS\IO\StdIn, new PS\IO\StdOut );
 $s->addCommand( new Command\Puts('foo') );
@@ -114,8 +114,8 @@ connected to head which will print the first 10 lines it receives.
 
 The PHP code for this is below:
 ```php
-use ElvenSpellmaker\PipeSystem as PS;
-use ElvenSpellmaker\PipeSystem\Command as Command;
+use ElvenSpellmaker\PipeSys as PS;
+use ElvenSpellmaker\PipeSys\Command as Command;
 
 $s = new PS\Scheduler( new PS\IO\StdIn, new PS\IO\StdOut );
 $s->addCommand( new Command\ChattyYes );
@@ -145,8 +145,8 @@ head which will print the first 10 lines it receives.
 
 The PHP code for this is below:
 ```php
-use ElvenSpellmaker\PipeSystem as PS;
-use ElvenSpellmaker\PipeSystem\Command as Command;
+use ElvenSpellmaker\PipeSys as PS;
+use ElvenSpellmaker\PipeSys\Command as Command;
 
 $s = new PS\Scheduler( new PS\IO\StdIn, new PS\IO\StdOut );
 $s->addCommand( new Command\ChattyYes );

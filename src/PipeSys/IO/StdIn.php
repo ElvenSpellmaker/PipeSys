@@ -1,9 +1,9 @@
 <?php
 
-namespace ElvenSpellmaker\PipeSystem\IO;
+namespace ElvenSpellmaker\PipeSys\IO;
 
-use ElvenSpellmaker\PipeSystem\IO\EOF;
-use ElvenSpellmaker\PipeSystem\IO\InputInterface;
+use ElvenSpellmaker\PipeSys\IO\EOF;
+use ElvenSpellmaker\PipeSys\IO\InputInterface;
 
 class StdIn implements InputInterface
 {

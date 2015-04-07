@@ -1,8 +1,8 @@
 <?php
 
-namespace ElvenSpellmaker\PipeSystem\IO;
+namespace ElvenSpellmaker\PipeSys\IO;
 
-use ElvenSpellmaker\PipeSystem\IO\OutputInterface;
+use ElvenSpellmaker\PipeSys\IO\OutputInterface;
 
 class StdOut implements OutputInterface
 {

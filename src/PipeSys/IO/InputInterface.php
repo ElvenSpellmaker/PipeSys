@@ -1,16 +1,16 @@
 <?php
 
-namespace ElvenSpellmaker\PipeSystem\IO;
+namespace ElvenSpellmaker\PipeSys\IO;
 
-use ElvenSpellmaker\PipeSystem\IO\EOF;
+use ElvenSpellmaker\PipeSys\IO\EOF;
 
 /**
- * Specifies a method for reading data into the PipeSystem.
+ * Specifies a method for reading data into the PipeSys.
  */
 interface InputInterface
 {
 	/**
-	 * Reads data into the PipeSystem.
+	 * Reads data into the PipeSys.
 	 *
 	 * @return string|EOF The data to be used or an EOF object once the stream
 	 * is exhausted.

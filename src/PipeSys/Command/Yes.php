@@ -1,8 +1,8 @@
 <?php
 
-namespace ElvenSpellmaker\PipeSystem\Command;
+namespace ElvenSpellmaker\PipeSys\Command;
 
-use ElvenSpellmaker\PipeSystem\Command\CommandInterface;
+use ElvenSpellmaker\PipeSys\Command\CommandInterface;
 
 class Yes implements CommandInterface
 {

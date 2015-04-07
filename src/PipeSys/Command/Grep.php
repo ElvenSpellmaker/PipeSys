@@ -1,10 +1,10 @@
 <?php
 
-namespace ElvenSpellmaker\PipeSystem\Command;
+namespace ElvenSpellmaker\PipeSys\Command;
 
-use ElvenSpellmaker\PipeSystem\Command\CommandInterface;
-use ElvenSpellmaker\PipeSystem\IO\EOF;
-use ElvenSpellmaker\PipeSystem\IO\ReadIntent;
+use ElvenSpellmaker\PipeSys\Command\CommandInterface;
+use ElvenSpellmaker\PipeSys\IO\EOF;
+use ElvenSpellmaker\PipeSys\IO\ReadIntent;
 
 class Grep implements CommandInterface
 {

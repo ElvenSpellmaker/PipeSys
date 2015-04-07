@@ -1,6 +1,6 @@
 <?php
 
-namespace ElvenSpellmaker\PipeSystem\Command;
+namespace ElvenSpellmaker\PipeSys\Command;
 
 use Generator;
 

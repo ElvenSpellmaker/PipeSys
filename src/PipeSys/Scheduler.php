@@ -1,11 +1,11 @@
 <?php
 
-namespace ElvenSpellmaker\PipeSystem;
+namespace ElvenSpellmaker\PipeSys;
 
-use ElvenSpellmaker\PipeSystem\Command\CommandInterface;
-use ElvenSpellmaker\PipeSystem\IO\InputInterface;
-use ElvenSpellmaker\PipeSystem\IO\OutputInterface;
-use ElvenSpellmaker\PipeSystem\IO\ReadIntent;
+use ElvenSpellmaker\PipeSys\Command\CommandInterface;
+use ElvenSpellmaker\PipeSys\IO\InputInterface;
+use ElvenSpellmaker\PipeSys\IO\OutputInterface;
+use ElvenSpellmaker\PipeSys\IO\ReadIntent;
 use Generator;
 
 /**
