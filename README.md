@@ -85,10 +85,10 @@ The equivalent `PipeSys` code to the above scenario is below:
 use ElvenSpellmaker\PipeSystem as PS;
 use ElvenSpellmaker\PipeSystem\Command as Command;
 
-$s = new PS\Scheduler(new PS\IO\StdIn, new PS\IO\StdOut);
-$s->addCommand(new Command\Puts('foo');
-$s->addCommand(new Command\Head(1);
-$s->addCommand(new Command\Yes);
+$s = new PS\Scheduler( new PS\IO\StdIn, new PS\IO\StdOut );
+$s->addCommand( new Command\Puts('foo') );
+$s->addCommand( new Command\Head( 1 ) );
+$s->addCommand( new Command\Yes );
 $s->run();
 ```
 
@@ -117,9 +117,9 @@ The PHP code for this is below:
 use ElvenSpellmaker\PipeSystem as PS;
 use ElvenSpellmaker\PipeSystem\Command as Command;
 
-$s = new PS\Scheduler(new PS\IO\StdIn, new PS\IO\StdOut);
-$s->addCommand(new Command\ChattyYes);
-$s->addCommand(new Command\Head);
+$s = new PS\Scheduler( new PS\IO\StdIn, new PS\IO\StdOut );
+$s->addCommand( new Command\ChattyYes );
+$s->addCommand( new Command\Head );
 $s->run();
 
 Output:
@@ -148,10 +148,10 @@ The PHP code for this is below:
 use ElvenSpellmaker\PipeSystem as PS;
 use ElvenSpellmaker\PipeSystem\Command as Command;
 
-$s = new PS\Scheduler(new PS\IO\StdIn, new PS\IO\StdOut);
-$s->addCommand(new Command\ChattyYes);
-$s->addCommand(new Command\Grep('Chatty');
-$s->addCommand(new Command\Head);
+$s = new PS\Scheduler( new PS\IO\StdIn, new PS\IO\StdOut );
+$s->addCommand( new Command\ChattyYes );
+$s->addCommand( new Command\Grep( 'Chatty' ) );
+$s->addCommand( new Command\Head );
 $s->run();
 
 Output:
