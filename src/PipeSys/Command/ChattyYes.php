@@ -6,12 +6,17 @@ use ElvenSpellmaker\PipeSys\Command\CommandInterface;
 
 class ChattyYes implements CommandInterface
 {
-	protected $chatting = [
-		'Yes'. PHP_EOL,
-		'I'. PHP_EOL,
-		'Am'. PHP_EOL,
-		'Chatty'. PHP_EOL,
-	];
+	protected $chatting = [];
+
+	public function __construct()
+	{
+		$this->chatting = [
+			'Yes'. PHP_EOL,
+			'I'. PHP_EOL,
+			'Am'. PHP_EOL,
+			'Chatty'. PHP_EOL,
+		];
+	}
 
 	/**
 	 * {@inheritdoc}
