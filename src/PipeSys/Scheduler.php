@@ -3,8 +3,10 @@
 namespace ElvenSpellmaker\PipeSys;
 
 use ElvenSpellmaker\PipeSys\Command\CommandInterface;
+use ElvenSpellmaker\PipeSys\IO\BufferInterface;
 use ElvenSpellmaker\PipeSys\IO\InputInterface;
 use ElvenSpellmaker\PipeSys\IO\OutputInterface;
+use ElvenSpellmaker\PipeSys\IO\QueueBuffer;
 use ElvenSpellmaker\PipeSys\IO\ReadIntent;
 use Generator;
 
@@ -30,6 +32,11 @@ class Scheduler
 	 * @var string[]
 	 */
 	protected $outputs = [];
+
+	/**
+	 * @var BufferInterface
+	 */
+	protected $buffers = [];
 
 	/**
 	 * @var bool[]
@@ -111,6 +118,11 @@ class Scheduler
 		foreach( $this->commands as $key => $commands )
 		{
 			$this->commandGenerators[$key] = $commands->doCommand();
+
+			/** @todo This should be injectable... But how‽ */
+			$this->buffers[$key] = new QueueBuffer;
+
+			// Run the generators once and handle the responses.
 			$genResponse = $this->commandGenerators[$key]->current();
 			$this->handleGenResponse($genResponse, $key);
 		}
@@ -136,16 +148,15 @@ class Scheduler
 		{
 			$previousGenKey = $key - 1;
 			if( $previousGenKey === static::STDIN )
-			{
 				$output = $this->stdIn->read();
-				unset( $this->readIntents[$key] );
-			}
 			elseif( isset( $this->outputs[$previousGenKey] ) )
 			{
 				$output = $this->outputs[$previousGenKey];
-				unset( $this->outputs[$previousGenKey], $this->readIntents[$key] );
+				unset( $this->outputs[$previousGenKey] );
 			}
-			else $output = false;
+			else $output = $this->buffers[$previousGenKey]->read();
+
+			if( $output !== false ) unset( $this->readIntents[$key] );
 		}
 
 		return $output;
@@ -197,7 +208,12 @@ class Scheduler
 			if( $this->commands[$key] === end($this->commands) )
 				$this->stdOut->write( $genResponse );
 			else
-				$this->outputs[$key] = $genResponse;
+			{
+				// If we can't add the response to the buffer, effectively
+				// block the process.
+				if( ! $this->buffers[$key]->write( $genResponse ) )
+					$this->outputs[$key] = $genResponse;
+			}
 		}
 	}
 }
