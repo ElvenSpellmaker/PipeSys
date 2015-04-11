@@ -83,33 +83,41 @@ class Scheduler
 	 */
 	public function run()
 	{
-		$this->prepareCommands();
+		$invalidCommands = $this->prepareCommands();
 
 		while( true )
 		{
 			foreach( $this->commandGenerators as $key => $gen )
 			{
-				/** @todo This needs to be replaced as it's not strictly correct! */
-				if ( ! $gen->valid() ) break 2;
+				if( ! $gen->valid() ) $invalidCommands[$key] = true;
 
 				// Check to see if this command is intending on reading and
 				// if so gets the data if available.
-				if( ( $readLine = $this->checkForLine($key) ) === false ) continue;
+				if( ( $readLine = $this->checkForLine( $key ) ) === false )
+					continue;
 
 				if( ( $genResponse = $this->runGen( $key, $readLine ) ) === false )
 					continue;
 
-				$this->handleGenResponse($genResponse, $key);
+				$this->handleGenResponse( $genResponse, $key );
 			}
+
+			// If every command is now invalid.
+			if( count( $invalidCommands ) === count( $this->commandGenerators ) )
+				break;
 		}
 	}
 
 	/**
 	 * Prepapres all commands by getting their generators from `doCommand()`
 	 * and handles the first response from each generator.
+	 *
+	 * @return array An array containing invalid generators as a booleans.
 	 */
 	protected function prepareCommands()
 	{
+		$invalidCommands = [];
+
 		foreach( $this->commands as $key => $commands )
 		{
 			$this->commandGenerators[$key] = $commands->doCommand();
@@ -120,7 +128,12 @@ class Scheduler
 			// Run the generators once and handle the responses.
 			$genResponse = $this->commandGenerators[$key]->current();
 			$this->handleGenResponse($genResponse, $key);
+
+			if( ! $this->commandGenerators[$key]->valid() )
+				$invalidCommands[$key] = true;
 		}
+
+		return $invalidCommands;
 	}
 
 	/**
@@ -195,7 +208,7 @@ class Scheduler
 		{
 			// If we are the last command in the chain and we want to write,
 			// then we can write to the stdOut, whatever that is defined as.
-			if( $this->commands[$key] === end($this->commands) )
+			if( $this->commands[$key] === end( $this->commands ) )
 				$this->stdOut->write( $genResponse );
 			else
 				$this->buffers[$key]->write( $genResponse );

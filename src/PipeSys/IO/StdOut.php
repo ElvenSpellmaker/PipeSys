@@ -2,6 +2,7 @@
 
 namespace ElvenSpellmaker\PipeSys\IO;
 
+use ElvenSpellmaker\PipeSys\IO\EOF;
 use ElvenSpellmaker\PipeSys\IO\OutputInterface;
 
 class StdOut implements OutputInterface
@@ -11,6 +12,8 @@ class StdOut implements OutputInterface
 	 */
 	public function write($out)
 	{
+		if( $out instanceof EOF ) return false;
+
 		fwrite( STDOUT, $out );
 	}
 }
