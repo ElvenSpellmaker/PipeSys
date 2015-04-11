@@ -99,7 +99,9 @@ class Scheduler
 				if( ( $genResponse = $this->runGen( $key, $readLine ) ) === false )
 					continue;
 
-				$this->handleGenResponse( $genResponse, $key );
+				// If the pipe is dead then invalidate the command...
+				if( ! $this->handleGenResponse( $genResponse, $key ) )
+					$invalidCommands[$key] = true;
 			}
 
 			// If every command is now invalid.
@@ -211,7 +213,16 @@ class Scheduler
 			if( $this->commands[$key] === end( $this->commands ) )
 				$this->stdOut->write( $genResponse );
 			else
+			{
+				// If we are trying to write to a dead pipe return false...
+				if( isset( $this->commandGenerators[$key + 1] )
+					&& ! $this->commandGenerators[$key + 1]->valid() )
+					return false;
+
 				$this->buffers[$key]->write( $genResponse );
+			}
 		}
+
+		return true;
 	}
 }
