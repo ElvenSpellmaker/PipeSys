@@ -29,11 +29,6 @@ class Scheduler
 	protected $commandGenerators = [];
 
 	/**
-	 * @var string[]
-	 */
-	protected $outputs = [];
-
-	/**
 	 * @var BufferInterface
 	 */
 	protected $buffers = [];
@@ -149,11 +144,6 @@ class Scheduler
 			$previousGenKey = $key - 1;
 			if( $previousGenKey === static::STDIN )
 				$output = $this->stdIn->read();
-			elseif( isset( $this->outputs[$previousGenKey] ) )
-			{
-				$output = $this->outputs[$previousGenKey];
-				unset( $this->outputs[$previousGenKey] );
-			}
 			else $output = $this->buffers[$previousGenKey]->read();
 
 			if( $output !== false ) unset( $this->readIntents[$key] );
@@ -179,7 +169,7 @@ class Scheduler
 
 		if( $readLine !== false && $readLine !== null )
 			$genResponse = $gen->send( $readLine );
-		elseif( ! isset( $this->outputs[$key] ) )
+		elseif( ! $this->buffers[$key]->isBlocked() )
 		{
 			$gen->next();
 			$genResponse = $gen->current();
@@ -208,12 +198,7 @@ class Scheduler
 			if( $this->commands[$key] === end($this->commands) )
 				$this->stdOut->write( $genResponse );
 			else
-			{
-				// If we can't add the response to the buffer, effectively
-				// block the process.
-				if( ! $this->buffers[$key]->write( $genResponse ) )
-					$this->outputs[$key] = $genResponse;
-			}
+				$this->buffers[$key]->write( $genResponse );
 		}
 	}
 }

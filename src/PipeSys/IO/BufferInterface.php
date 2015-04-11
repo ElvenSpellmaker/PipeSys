@@ -16,6 +16,20 @@ interface BufferInterface
 	public function write($line);
 
 	/**
+	 * Returns true if writing won't block.
+	 *
+	 * @return bool True if writing to this buffer should succeed.
+	 */
+	public function isWritable();
+
+	/**
+	 * Returns true if the pipe is blocked.
+	 *
+	 * @returns bool True if the pipe is blocked.
+	 */
+	public function isBlocked();
+
+	/**
 	 * Attempts to read a line from the buffer.
 	 *
 	 * @return string|EOF|false A string or EOF if successful, false on failure.

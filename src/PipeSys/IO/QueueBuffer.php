@@ -8,12 +8,17 @@ use SplQueue;
 
 class QueueBuffer implements BufferInterface
 {
-	const DEFAULT_BUFFER_LENGTH = 65535;
+	const DEFAULT_BUFFER_LENGTH = 65536;
 
 	/**
 	 * @var SplQueue
 	 */
 	protected $buffer;
+
+	/**
+	 * @var string
+	 */
+	protected $block;
 
 	/**
 	 * @var integer
@@ -34,9 +39,16 @@ class QueueBuffer implements BufferInterface
 	 */
 	public function write($line)
 	{
-		if( count( $this->buffer ) < $this->bufferLength )
+		if( $this->isWritable() )
 		{
 			$this->buffer->enqueue( $line );
+
+			return true;
+		}
+
+		if( ! isset( $this->block ) )
+		{
+			$this->block = $line;
 
 			return true;
 		}
@@ -47,15 +59,39 @@ class QueueBuffer implements BufferInterface
 	/**
 	 * {@inheritdoc}
 	 */
+	public function isWritable()
+	{
+		return count( $this->buffer ) < $this->bufferLength;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function isBlocked()
+	{
+		return isset( $this->block );
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
 	public function read()
 	{
 		try
 		{
-			return $this->buffer->dequeue();
+			$ret = $this->buffer->dequeue();
 		}
 		catch(RuntimeException $e)
 		{
 			return false;
 		}
+
+		if( isset( $this->block ) )
+		{
+			$this->buffer->enqueue( $this->block );
+			unset( $this->block );
+		}
+
+		return $ret;
 	}
 }
