@@ -6,6 +6,9 @@ use ElvenSpellmaker\PipeSys\IO\BufferInterface;
 use RuntimeException;
 use SplQueue;
 
+/**
+ * A buffer for buffering outputs of commands.
+ */
 class QueueBuffer implements BufferInterface
 {
 	const DEFAULT_BUFFER_LENGTH = 65536;

@@ -6,6 +6,9 @@ use ElvenSpellmaker\PipeSys\Command\CommandInterface;
 use ElvenSpellmaker\PipeSys\IO\EOF;
 use ElvenSpellmaker\PipeSys\IO\ReadIntent;
 
+/**
+ * Grep acts in a similar fashion to its namesake UNIX command.
+ */
 class Grep implements CommandInterface
 {
 	/**

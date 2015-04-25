@@ -5,6 +5,9 @@ namespace ElvenSpellmaker\PipeSys\IO;
 use ElvenSpellmaker\PipeSys\IO\EOF;
 use ElvenSpellmaker\PipeSys\IO\InputInterface;
 
+/**
+ * Emulates StdIn.
+ */
 class StdIn implements InputInterface
 {
 	/**

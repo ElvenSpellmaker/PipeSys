@@ -4,6 +4,9 @@ namespace ElvenSpellmaker\PipeSys\IO;
 
 use ElvenSpellmaker\PipeSys\IO\EOF;
 
+/**
+ * Buffers store data which may be retrieved later.
+ */
 interface BufferInterface
 {
 	/**
