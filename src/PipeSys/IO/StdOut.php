@@ -5,6 +5,9 @@ namespace ElvenSpellmaker\PipeSys\IO;
 use ElvenSpellmaker\PipeSys\IO\EOF;
 use ElvenSpellmaker\PipeSys\IO\OutputInterface;
 
+/**
+ * Emulates StdOut.
+ */
 class StdOut implements OutputInterface
 {
 	/**

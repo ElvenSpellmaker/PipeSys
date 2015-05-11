@@ -4,6 +4,7 @@ namespace ElvenSpellmaker\PipeSys;
 
 use ElvenSpellmaker\PipeSys\Command\CommandInterface;
 use ElvenSpellmaker\PipeSys\IO\BufferInterface;
+use ElvenSpellmaker\PipeSys\IO\Error;
 use ElvenSpellmaker\PipeSys\IO\InputInterface;
 use ElvenSpellmaker\PipeSys\IO\OutputInterface;
 use ElvenSpellmaker\PipeSys\IO\QueueBuffer;
@@ -49,15 +50,22 @@ class Scheduler
 	protected $stdOut;
 
 	/**
+	 * @var OutputInterface
+	 */
+	protected $stdErr;
+
+	/**
 	 * @param InputInterface $stdIn The standard Input to be used for the first
 	 * command to read from.
 	 * @param OutputInterface $stdOut The Standard Out to be used for the last
 	 * command to write to.
 	 */
-	public function __construct(InputInterface $stdIn, OutputInterface $stdOut)
+	public function __construct(InputInterface $stdIn, OutputInterface $stdOut,
+		OutputInterface $stdErr)
 	{
 		$this->stdIn = $stdIn;
 		$this->stdOut = $stdOut;
+		$this->stdErr = $stdErr;
 	}
 
 	/**
@@ -129,7 +137,7 @@ class Scheduler
 
 			// Run the generators once and handle the responses.
 			$genResponse = $this->commandGenerators[$key]->current();
-			$this->handleGenResponse($genResponse, $key);
+			$this->handleGenResponse( $genResponse, $key );
 
 			if( ! $this->commandGenerators[$key]->valid() )
 				$invalidCommands[$key] = true;
@@ -206,6 +214,8 @@ class Scheduler
 	{
 		if( $genResponse instanceof ReadIntent )
 			$this->readIntents[$key] = true;
+		elseif( $genResponse instanceof Error )
+			$this->stdErr->write( $genResponse->getErrorString() );
 		else
 		{
 			// If we are the last command in the chain and we want to write,

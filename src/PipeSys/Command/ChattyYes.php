@@ -4,6 +4,10 @@ namespace ElvenSpellmaker\PipeSys\Command;
 
 use ElvenSpellmaker\PipeSys\Command\CommandInterface;
 
+/**
+ * ChattyYes outputs a few phrases over and over, similar to yes, but with
+ * multiple phrases.
+ */
 class ChattyYes implements CommandInterface
 {
 	protected $chatting = [];

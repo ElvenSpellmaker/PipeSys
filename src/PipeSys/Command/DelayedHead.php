@@ -6,11 +6,7 @@ use ElvenSpellmaker\PipeSys\Command\CommandInterface;
 use ElvenSpellmaker\PipeSys\IO\EOF;
 use ElvenSpellmaker\PipeSys\IO\ReadIntent;
 
-/**
- * Head acts simiar to its namesake UNIX command, in that it only outputs a
- * certain number of lines.
- */
-class Head implements CommandInterface
+class DelayedHead implements CommandInterface
 {
 	protected $lines;
 
@@ -27,6 +23,9 @@ class Head implements CommandInterface
 	 */
 	public function doCommand()
 	{
+		$delay = $this->lines;
+		while($delay--) yield 'hello';
+
 		while($this->lines--)
 		{
 			$input = (yield new ReadIntent);

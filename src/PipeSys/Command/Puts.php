@@ -4,6 +4,10 @@ namespace ElvenSpellmaker\PipeSys\Command;
 
 use ElvenSpellmaker\PipeSys\Command\CommandInterface;
 
+/**
+ * Puts is similar to the echo UNIX command, except PHP reserves the Echo
+ * keyword.
+ */
 class Puts implements CommandInterface
 {
 	/**
