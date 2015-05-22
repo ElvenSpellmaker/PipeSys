@@ -100,7 +100,7 @@ class Scheduler
 					continue;
 
 				// If the pipe is dead then invalidate the command...
-				if( ! $this->handleGenResponse( $genResponse, $key ) )
+				if( ! $this->handleGenResponse( $genResponse, $key, $invalidCommands ) )
 					$invalidCommands[$key] = true;
 			}
 
@@ -129,7 +129,7 @@ class Scheduler
 
 			// Run the generators once and handle the responses.
 			$genResponse = $this->commandGenerators[$key]->current();
-			$this->handleGenResponse($genResponse, $key);
+			$this->handleGenResponse( $genResponse, $key, $invalidCommands );
 
 			if( ! $this->commandGenerators[$key]->valid() )
 				$invalidCommands[$key] = true;
@@ -201,8 +201,10 @@ class Scheduler
 	 *
 	 * @param string|ReadIntent $genResponse
 	 * @param integer $key
+	 * @param array $invalidCommands
 	 */
-	protected function handleGenResponse($genResponse, $key)
+	protected function handleGenResponse($genResponse, $key,
+		array $invalidCommands)
 	{
 		if( $genResponse instanceof ReadIntent )
 			$this->readIntents[$key] = true;
@@ -215,8 +217,8 @@ class Scheduler
 			else
 			{
 				// If we are trying to write to a dead pipe return false...
-				if( isset( $this->commandGenerators[$key + 1] )
-					&& ! $this->commandGenerators[$key + 1]->valid() )
+				if( isset( $invalidCommands[$key + 1] )
+					&& $invalidCommands[$key + 1] )
 					return false;
 
 				$this->buffers[$key]->write( $genResponse );
