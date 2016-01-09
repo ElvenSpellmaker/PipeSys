@@ -1,5 +1,5 @@
 {
-	"name": "ElvenSpellmaker/PipeSys",
+	"name": "elvenspellmaker/pipesys",
 	"type": "library",
 	"description": "A system of \"pipes\" for PHP.",
 	"license": "MIT",
