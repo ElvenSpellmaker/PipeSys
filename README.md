@@ -1,4 +1,4 @@
-PipeSys
+PipeSys [![Build Status](https://travis-ci.org/ElvenSpellmaker/PipeSys.svg?branch=master)](https://travis-ci.org/ElvenSpellmaker/PipeSys)
 =======
 
 PipeSys (*said Pipes*) is a very basic system of pipes implemented in PHP.
