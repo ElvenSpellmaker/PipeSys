@@ -8,24 +8,14 @@ use ElvenSpellmaker\PipeSys\IO\OutputIntent;
 use ElvenSpellmaker\PipeSys\IO\ReadIntent;
 
 /**
- * A basic `grep` command.
+ * Reads from StdIn, and then shunts the text to sprunge reutrning the URL.
  */
-class Grep extends AbstractCommand
+class Sprunge extends AbstractCommand
 {
 	/**
 	 * @var string
 	 */
-	protected $regex;
-
-	/**
-	 * @param string $regex
-	 */
-	public function __construct($regex)
-	{
-		// Escape the % signs in the string.
-		$regex = str_replace('%', '\%', $regex);
-		$this->regex = "%$regex%";
-	}
+	private $text;
 
 	/**
 	 * {@inheritdoc}
@@ -41,14 +31,19 @@ class Grep extends AbstractCommand
 				break;
 			}
 
-			$input = rtrim($input, "\r\n");
-
-			$output = preg_grep($this->regex, [$input]);
-
-			if (count($output))
-			{
-				yield new OutputIntent($input . PHP_EOL);
-			}
+			$this->text .= $input;
 		}
+
+		$curl = curl_init();
+
+		curl_setopt($curl, CURLOPT_URL, 'http://sprunge.us');
+		curl_setopt($curl, CURLOPT_POST, 1);
+		curl_setopt($curl, CURLOPT_POSTFIELDS, ['sprunge' => $this->text]);
+
+		$result = curl_exec($curl);
+
+		curl_close($curl);
+
+		yield new OutputIntent($result);
 	}
 }

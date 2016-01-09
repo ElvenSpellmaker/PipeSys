@@ -1,2 +1,4 @@
 /nbproject/
 /vendor/
+/bin/sca/phpcs.txt
+/bin/sca/phpmd.html

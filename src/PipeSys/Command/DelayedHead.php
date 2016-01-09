@@ -8,9 +8,9 @@ use ElvenSpellmaker\PipeSys\IO\OutputIntent;
 use ElvenSpellmaker\PipeSys\IO\ReadIntent;
 
 /**
- * Similar to the UNIX `head` command.
+ * Similar to Head but delays by half its amount beforehand.
  */
-class Head extends AbstractCommand
+class DelayedHead extends AbstractCommand
 {
 	/**
 	 * @var integer
@@ -30,8 +30,13 @@ class Head extends AbstractCommand
 	 */
 	public function getCommand()
 	{
-		$input = null;
-		while ($this->lines-- !== 0)
+		$delay = $this->lines / 2;
+		while ($delay--)
+		{
+			yield true;
+		}
+
+		while ($this->lines--)
 		{
 			$input = (yield new ReadIntent);
 			if ($input instanceof EOF)
@@ -42,6 +47,6 @@ class Head extends AbstractCommand
 			yield new OutputIntent($input);
 		}
 
-		yield $input;
+		yield new OutputIntent(new EOF);
 	}
 }

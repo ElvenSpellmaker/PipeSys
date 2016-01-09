@@ -3,11 +3,12 @@
 namespace ElvenSpellmaker\PipeSys\IO;
 
 use ElvenSpellmaker\PipeSys\IO\EOF;
+use ElvenSpellmaker\PipeSys\IO\IOInterface;
 
 /**
  * Specifies a method for reading data into the PipeSys.
  */
-interface InputInterface
+interface InputInterface extends IOInterface
 {
 	/**
 	 * Reads data into the PipeSys.

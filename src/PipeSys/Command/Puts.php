@@ -2,9 +2,13 @@
 
 namespace ElvenSpellmaker\PipeSys\Command;
 
-use ElvenSpellmaker\PipeSys\Command\CommandInterface;
+use ElvenSpellmaker\PipeSys\Command\AbstractCommand;
+use ElvenSpellmaker\PipeSys\IO\OutputIntent;
 
-class Puts implements CommandInterface
+/**
+ * An `echo` command called Puts due to PHP Lexer limitations.
+ */
+class Puts extends AbstractCommand
 {
 	/**
 	 * @var string
@@ -22,8 +26,8 @@ class Puts implements CommandInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function doCommand()
+	public function getCommand()
 	{
-		yield $this->echoLine;
+		yield new OutputIntent($this->echoLine);
 	}
 }

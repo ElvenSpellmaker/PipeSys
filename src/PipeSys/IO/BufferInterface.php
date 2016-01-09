@@ -3,8 +3,10 @@
 namespace ElvenSpellmaker\PipeSys\IO;
 
 use ElvenSpellmaker\PipeSys\IO\EOF;
+use ElvenSpellmaker\PipeSys\IO\InputInterface;
+use ElvenSpellmaker\PipeSys\IO\OutputInterface;
 
-interface BufferInterface
+interface BufferInterface extends InputInterface, OutputInterface
 {
 	/**
 	 * Writes a line into the buffer if there is room.
@@ -35,4 +37,9 @@ interface BufferInterface
 	 * @return string|EOF|false A string or EOF if successful, false on failure.
 	 */
 	public function read();
+
+	/**
+	 * Invalidates this buffer for writing.
+	 */
+	public function invalidate();
 }
