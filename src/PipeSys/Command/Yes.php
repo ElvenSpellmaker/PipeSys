@@ -2,17 +2,35 @@
 
 namespace ElvenSpellmaker\PipeSys\Command;
 
-use ElvenSpellmaker\PipeSys\Command\CommandInterface;
+use ElvenSpellmaker\PipeSys\Command\AbstractCommand;
+use ElvenSpellmaker\PipeSys\IO\OutputIntent;
 
-class Yes implements CommandInterface
+/**
+ * Similar to the UNIX `yes` command.
+ */
+class Yes extends AbstractCommand
 {
-	const ECHO_LINE = 'y'. PHP_EOL;
+	/**
+	 * @var string
+	 */
+	private $echoLine;
+
+	/**
+	 * @param string $echoLine
+	 */
+	public function __construct($echoLine = 'y')
+	{
+		$this->echoLine = $echoLine;
+	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	public function doCommand()
+	public function getCommand()
 	{
-		while(true) yield static::ECHO_LINE;
+		while (true)
+		{
+			yield new OutputIntent($this->echoLine);
+		}
 	}
 }

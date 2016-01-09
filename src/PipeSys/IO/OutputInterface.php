@@ -2,15 +2,17 @@
 
 namespace ElvenSpellmaker\PipeSys\IO;
 
+use ElvenSpellmaker\PipeSys\IO\IOInterface;
+
 /**
  * Specifies a method for writing data to the end of the PipeSys.
  */
-interface OutputInterface
+interface OutputInterface extends IOInterface
 {
 	/**
 	 * Writes the output of the PipeSys.
 	 *
-	 * @param mixed $out
+	 * @param mixed $line
 	 */
-	public function write($out);
+	public function write($line);
 }
