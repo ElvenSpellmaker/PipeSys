@@ -46,7 +46,5 @@ class DelayedHead extends AbstractCommand
 
 			yield new OutputIntent($input);
 		}
-
-		yield new OutputIntent(new EOF);
 	}
 }
