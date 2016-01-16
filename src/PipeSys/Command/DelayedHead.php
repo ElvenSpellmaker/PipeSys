@@ -30,7 +30,7 @@ class DelayedHead extends AbstractCommand
 	 */
 	public function getCommand()
 	{
-		$delay = $this->lines / 2;
+		$delay = round($this->lines / 2);
 		while ($delay--)
 		{
 			yield true;
