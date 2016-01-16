@@ -22,6 +22,7 @@ class Sprunge extends AbstractCommand
 	 */
 	public function getCommand()
 	{
+
 		while (true)
 		{
 			$input = (yield new ReadIntent);
@@ -34,9 +35,8 @@ class Sprunge extends AbstractCommand
 			$this->text .= $input;
 		}
 
-		$curl = curl_init();
+		$curl = curl_init('http://sprunge.us');
 
-		curl_setopt($curl, CURLOPT_URL, 'http://sprunge.us');
 		curl_setopt($curl, CURLOPT_POST, 1);
 		curl_setopt($curl, CURLOPT_POSTFIELDS, ['sprunge' => $this->text]);
 

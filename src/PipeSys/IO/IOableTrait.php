@@ -123,7 +123,14 @@ trait IOableTrait
 			throw new IOException("The IOableObject in position '$key' does not implement the InputInterface!");
 		}
 
-		return $this->ios[$key]['channel']->read();
+		try
+		{
+			return $this->ios[$key]['channel']->read();
+		}
+		catch (InvalidBufferException $e)
+		{
+			return new EOF;
+		}
 	}
 
 	/**

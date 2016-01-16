@@ -57,7 +57,7 @@ class Scheduler
 			{
 				$result = $command->runOnce();
 
-				if ($result === null)
+				if ($result === null || ! $command->isValid())
 				{
 					unset($this->commands[$key]);
 				}

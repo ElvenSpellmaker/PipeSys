@@ -54,15 +54,7 @@ abstract class AbstractCommand implements CommandInterface
 			$firstRun = true;
 		}
 
-		try
-		{
-			return $this->attemptRun($firstRun);
-		}
-		catch (InvalidBufferException $e)
-		{
-			$this->invalidate();
-			return null;
-		}
+		return $this->attemptRun($firstRun);
 	}
 
 	/**
@@ -81,6 +73,11 @@ abstract class AbstractCommand implements CommandInterface
 		if ($this->isReading())
 		{
 			$data = $this->attemptRead();
+
+			if ($data instanceof EOF)
+			{
+				$this->invalidate();
+			}
 
 			if ($this->isReading())
 			{
@@ -155,7 +152,14 @@ abstract class AbstractCommand implements CommandInterface
 	{
 		if ($data instanceof OutputIntent)
 		{
-			$this->write($data->getChannel(), $data->getContent());
+			try
+			{
+				$this->write($data->getChannel(), $data->getContent());
+			}
+			catch (InvalidBufferException $e)
+			{
+				$this->invalidate();
+			}
 		}
 		if ($data instanceof ReadIntent)
 		{
