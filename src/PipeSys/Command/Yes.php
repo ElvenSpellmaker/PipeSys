@@ -20,7 +20,7 @@ class Yes extends AbstractCommand
 	 */
 	public function __construct($echoLine = 'y')
 	{
-		$this->echoLine = $echoLine;
+		$this->echoLine = $echoLine . "\n";
 	}
 
 	/**

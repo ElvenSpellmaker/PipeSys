@@ -47,7 +47,7 @@ class Grep extends AbstractCommand
 
 			if (count($output))
 			{
-				yield new OutputIntent($input . PHP_EOL);
+				yield new OutputIntent("$input\n");
 			}
 		}
 	}
