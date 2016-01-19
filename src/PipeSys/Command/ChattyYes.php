@@ -21,10 +21,10 @@ class ChattyYes extends AbstractCommand
 	public function __construct()
 	{
 		$this->chatting = [
-			'Yes' . PHP_EOL,
-			'I' . PHP_EOL,
-			'Am' . PHP_EOL,
-			'Chatty' . PHP_EOL,
+			"Yes\n",
+			"I\n",
+			"Am\n",
+			"Chatty\n",
 		];
 	}
 
