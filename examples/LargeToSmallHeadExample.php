@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 /**
  * @title    Example to show large head into smaller head.

@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 /**
  * @title    Tests two infinite commands and a terminating command.

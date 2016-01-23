@@ -22,6 +22,11 @@ class Scheduler
 	private $connector;
 
 	/**
+	 * @var boolean
+	 */
+	private $started;
+
+	/**
 	 * @param ConnectorInterface $connector The connector to connect commands
 	 * together.
 	 */
@@ -47,12 +52,26 @@ class Scheduler
 	/**
 	 * Runs all the commands added to the scheduler.
 	 */
-	public function run()
+	public function run($runs = true)
 	{
-		$this->connector->connect($this->commands);
+		if ($runs !== true && ! is_integer($runs))
+		{
+			$runs = (int)$runs;
+		}
+
+		if (! $this->started)
+		{
+			$this->started = true;
+			$this->connector->connect($this->commands);
+		}
 
 		while (count($this->commands))
 		{
+			if ($runs-- <= 0)
+			{
+				break;
+			}
+
 			foreach ($this->commands as $key => $command)
 			{
 				$result = $command->runOnce();
@@ -63,5 +82,17 @@ class Scheduler
 				}
 			}
 		}
+
+		return $this->commands;
+	}
+
+	/**
+	 * Has the scheduler already been run before?
+	 *
+	 * @return boolean
+	 */
+	public function isStarted()
+	{
+		return $this->started;
 	}
 }

@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 /**
  * @title    Basic example to show that `head` terminates `yes`.
