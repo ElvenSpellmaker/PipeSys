@@ -65,13 +65,8 @@ class Scheduler
 			$this->connector->connect($this->commands);
 		}
 
-		while (count($this->commands))
+		while (count($this->commands) && $runs-- > 0)
 		{
-			if ($runs-- <= 0)
-			{
-				break;
-			}
-
 			foreach ($this->commands as $key => $command)
 			{
 				$result = $command->runOnce();

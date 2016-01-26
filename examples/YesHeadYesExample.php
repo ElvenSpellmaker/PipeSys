@@ -33,10 +33,6 @@ $received = array_map('get_class', $c->run(1));
 
 if ($received !== $expected)
 {
-	echo '<pre>';
-	var_dump($expected, $received);
-	exit;
-
 	$output .= "Expecting the head to be missing!\n";
 }
 
