@@ -25,7 +25,7 @@ to continue. When data is available for the command it it sent using the
 `send()` generator method. `$input` will pick up this sent value and the
 generator will resume.
 
-When a command wants to write it should yield an `OutputIntent signalling that
+When a command wants to write it should yield an `OutputIntent` signalling that
 it has the intention to output something:
 ```php
 yield new OutputIntent('Hello World!');
