@@ -18,6 +18,16 @@
 	"require": {
 		"php": ">=5.6.0"
 	},
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "git@github.com:ve-global/PhpSnifferRules.git"
+		},
+		{
+			"type": "vcs",
+			"url": "git@github.com:ve-global/VeMessDetector.git"
+		}
+	],
 	"autoload": {
 		"classmap": ["src/"]
 	}
