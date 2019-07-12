@@ -21,11 +21,11 @@
 	"repositories": [
 		{
 			"type": "vcs",
-			"url": "git@github.com:ve-global/PhpSnifferRules.git"
+			"url": "git@github.com:ve-interactive/PhpSnifferRules.git"
 		},
 		{
 			"type": "vcs",
-			"url": "git@github.com:ve-global/VeMessDetector.git"
+			"url": "git@github.com:ve-interactive/VeMessDetector.git"
 		}
 	],
 	"autoload": {
