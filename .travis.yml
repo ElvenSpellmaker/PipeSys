@@ -8,7 +8,7 @@ php:
   
 before-install: git config --global github.accesstoken $GITHUB_OAUTH_TOKEN
 
-install: composer install --prefer-dist --no-interaction
+install: composer install --prefer-dist --no-interaction -vvv
 
 matrix:
   allow_failures:
