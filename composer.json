@@ -20,11 +20,11 @@
 	},
 	"repositories": [
 		{
-			"type": "vcs",
+			"type": "github",
 			"url": "git+ssh://git@github.com/ve-global/PhpSnifferRules.git"
 		},
 		{
-			"type": "vcs",
+			"type": "github",
 			"url": "git+ssh://git@github.com/ve-global/VeMessDetector.git"
 		}
 	],
