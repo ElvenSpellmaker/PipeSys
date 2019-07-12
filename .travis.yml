@@ -5,6 +5,8 @@ php:
   - '7.0'
   - hhvm
   - nightly
+  
+before-install: git config --global github.accesstoken $GITHUB_OAUTH_TOKEN
 
 install: composer install --prefer-dist --no-interaction
 
