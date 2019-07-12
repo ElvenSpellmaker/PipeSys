@@ -13,21 +13,21 @@ interface BufferInterface extends InputInterface, OutputInterface
 	 *
 	 * @param string|EOF $line
 	 *
-	 * @return bool Whether a successful write ocurred or not.
+	 * @return boolean Whether a successful write ocurred or not.
 	 */
 	public function write($line);
 
 	/**
 	 * Returns true if writing won't block.
 	 *
-	 * @return bool True if writing to this buffer should succeed.
+	 * @return boolean True if writing to this buffer should succeed.
 	 */
 	public function isWritable();
 
 	/**
 	 * Returns true if the pipe is blocked.
 	 *
-	 * @returns bool True if the pipe is blocked.
+	 * @returns boolean True if the pipe is blocked.
 	 */
 	public function isBlocked();
 
