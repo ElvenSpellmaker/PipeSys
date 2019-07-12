@@ -11,8 +11,8 @@
 		}
 	],
 	"require-dev": {
-		"ve-interactive/php-sniffer-rules": "dev-master",
-		"ve-interactive/php-mess-detector": "*",
+		"ve-interactive/php-sniffer-rules": "1.3.2",
+		"ve-interactive/php-mess-detector": "1.2.2",
 		"phpdocumentor/reflection-docblock": "2.0.4"
 	},
 	"require": {
