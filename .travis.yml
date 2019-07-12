@@ -6,7 +6,9 @@ php:
   - hhvm
   - nightly
   
-before-install: git config --global github.accesstoken $GITHUB_OAUTH_TOKEN
+before-install:
+  - git config --global github.accesstoken $GITHUB_OAUTH_TOKEN
+  - composer config github-oauth.github.com $GITHUB_OAUTH_TOKEN
 
 install: composer install --prefer-dist --no-interaction -vvv
 
