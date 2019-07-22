@@ -12,7 +12,7 @@
 	],
 	"require-dev": {
 		"ve-interactive/php-sniffer-rules": "1.3.2",
-		"ve-interactive/php-mess-detector": "1.2.2",
+		"ve-interactive/php-mess-detector": "2.0.0",
 		"phpdocumentor/reflection-docblock": "3.3.2"
 	},
 	"require": {
