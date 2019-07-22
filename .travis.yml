@@ -14,7 +14,10 @@ install: composer install --no-interaction
 
 matrix:
   allow_failures:
-    - php: hhvm
+    - php:
+      - hhvm
+      - nightly
+  fast_finish: true
 
 script:
   - ./vendor/bin/phpcs --standard=phpcs.xml src/
