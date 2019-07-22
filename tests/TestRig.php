@@ -74,7 +74,11 @@ function parseDocBlock($file)
 		}
 	}
 
-	return [$tags[0]->getContent(), $tags[1]->getContent(), $tags[2]->getContent()];
+	return [
+		(string)$tags[0],
+		(string)$tags[1],
+		(string)$tags[2],
+	];
 }
 
 function throwTagException($tagName, $file)
