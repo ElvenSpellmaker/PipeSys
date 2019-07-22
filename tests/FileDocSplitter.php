@@ -1,6 +1,6 @@
 <?php
 
-use phpDocumentor\Reflection\DocBlock;
+use phpDocumentor\Reflection\DocBlockFactory;
 use phpDocumentor\Reflection\DocBlock\Tag;
 
 /**
@@ -29,6 +29,8 @@ class FileDocSplitter
 			throw new RuntimeException('Couldn\'t locate the file docblock!');
 		}
 
-		return (new DocBlock($matches[1]))->getTags();
+		$factory = DocBlockFactory::createInstance();
+
+		return ($factory->create($matches[1])->getTags());
 	}
 }
