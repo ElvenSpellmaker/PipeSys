@@ -3,3 +3,4 @@
 /bin/sca/phpcs.txt
 /bin/sca/phpmd.html
 composer.lock
+/.vscode

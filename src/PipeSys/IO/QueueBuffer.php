@@ -98,7 +98,7 @@ class QueueBuffer implements BufferInterface
 		}
 		catch (RuntimeException $e)
 		{
-			return false;
+			return null;
 		}
 
 		if (isset($this->block))
