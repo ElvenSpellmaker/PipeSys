@@ -2,4 +2,4 @@
 
 BASEDIR=$(dirname $0)
 
-php BASEDIR/../tests/TestRig.php
+php $BASEDIR/../tests/TestRig.php

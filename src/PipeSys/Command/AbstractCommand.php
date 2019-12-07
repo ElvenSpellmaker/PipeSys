@@ -4,6 +4,7 @@ namespace ElvenSpellmaker\PipeSys\Command;
 
 use ElvenSpellmaker\PipeSys\Command\CommandInterface;
 use ElvenSpellmaker\PipeSys\IO\BufferInterface;
+use ElvenSpellmaker\PipeSys\IO\EOF;
 use ElvenSpellmaker\PipeSys\IO\InvalidBufferException;
 use ElvenSpellmaker\PipeSys\IO\IOableTrait;
 use ElvenSpellmaker\PipeSys\IO\OutputIntent;
@@ -89,7 +90,7 @@ abstract class AbstractCommand implements CommandInterface
 			$this->generator->next();
 		}
 
-		$genResponse = $data
+		$genResponse = $data !== null
 			? $this->generator->send($data)
 			: $this->generator->current();
 

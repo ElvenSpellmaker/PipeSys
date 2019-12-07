@@ -93,7 +93,7 @@ trait IOableTrait
 		{
 			$data = $this->read($this->readIntent->getChannel());
 
-			if ($data)
+			if ($data !== null)
 			{
 				$this->readIntent = null;
 			}
